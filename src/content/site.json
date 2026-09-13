@@ -9,10 +9,7 @@
   "site": {
     "name": "SanrioGang Archive",
     "status": "approved",
-    "genres": [
-      "trap",
-      "under"
-    ],
+    "genres": ["trap", "under"],
     "primaryLanguage": "es",
     "secondaryLanguage": "en",
     "navigation": [
@@ -172,9 +169,7 @@
       "isSecret": false,
       "date": null,
       "author": null,
-      "mediaIds": [
-        "photo-pink-signs"
-      ]
+      "mediaIds": ["photo-pink-signs"]
     }
   ],
   "media": [
@@ -313,31 +308,35 @@
   "songs": [
     {
       "id": "ReupqkPcEPw",
-      "title": null,
+      "title": "ricks y racks - villas afp",
       "label": "TRACK / 01",
       "url": "https://youtu.be/ReupqkPcEPw",
-      "status": "supplied"
+      "status": "supplied",
+      "metadataSource": "https://www.youtube.com/oembed?format=json&url=https%3A%2F%2Fyoutu.be%2FReupqkPcEPw"
     },
     {
       "id": "Ga_T2miUscU",
-      "title": null,
+      "title": "tommy cash - attiko x villas afp",
       "label": "TRACK / 02",
       "url": "https://youtu.be/Ga_T2miUscU",
-      "status": "supplied"
+      "status": "supplied",
+      "metadataSource": "https://www.youtube.com/oembed?format=json&url=https%3A%2F%2Fyoutu.be%2FGa_T2miUscU"
     },
     {
       "id": "ivkO6KhnciI",
-      "title": null,
+      "title": "game over - dazai x villas afp x el suke",
       "label": "TRACK / 03",
       "url": "https://youtu.be/ivkO6KhnciI",
-      "status": "supplied"
+      "status": "supplied",
+      "metadataSource": "https://www.youtube.com/oembed?format=json&url=https%3A%2F%2Fyoutu.be%2FivkO6KhnciI"
     },
     {
       "id": "FPbgrZ8qRxU",
-      "title": null,
+      "title": "K pena k sea tu hoe - El Suke & Villas AFP",
       "label": "TRACK / 04",
       "url": "https://youtu.be/FPbgrZ8qRxU",
-      "status": "supplied"
+      "status": "supplied",
+      "metadataSource": "https://www.youtube.com/oembed?format=json&url=https%3A%2F%2Fyoutu.be%2FFPbgrZ8qRxU"
     }
   ],
   "editorial": {
