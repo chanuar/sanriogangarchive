@@ -147,6 +147,12 @@ test("mobile menu, effects persistence, system preference and gallery", async ({
 
 test("built assets exclude private references and preserve confirmed destinations", async () => {
   const html = await fs.readFile("dist/index.html", "utf8");
+  for (const text of [
+    "son mi religi\u00f3n",
+    "hacer buena m\u00fasica",
+    "Actuaci\u00f3n en un escenario bajo luces azules y humo.",
+  ])
+    expect(html).toContain(text);
   for (const id of ["ReupqkPcEPw", "Ga_T2miUscU", "ivkO6KhnciI", "FPbgrZ8qRxU"])
     expect(html).toContain(`https://youtu.be/${id}`);
   expect(html).not.toMatch(/href="#"|SHOP|EST\. 2024|7 tracks/);
