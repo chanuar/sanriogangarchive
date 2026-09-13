@@ -17,7 +17,8 @@ test("responsive collage, assets, navigation and captures", async ({
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBe(width);
-    await expect(page.locator(".song-list a")).toHaveCount(4);
+    await expect(page.locator(".song-list a")).toHaveCount(5);
+    await expect(page.locator('.song-list a[href="https://youtu.be/T8Ah398lVDE"]')).toContainText("estoy enamorado - el suke");
     await expect(page.locator(".spotify-pending")).toContainText(
       "enlace oficial",
     );
@@ -153,7 +154,7 @@ test("built assets exclude private references and preserve confirmed destination
     "Actuaci\u00f3n en un escenario bajo luces azules y humo.",
   ])
     expect(html).toContain(text);
-  for (const id of ["ReupqkPcEPw", "Ga_T2miUscU", "ivkO6KhnciI", "FPbgrZ8qRxU"])
+  for (const id of ["ReupqkPcEPw", "Ga_T2miUscU", "ivkO6KhnciI", "FPbgrZ8qRxU", "T8Ah398lVDE"])
     expect(html).toContain(`https://youtu.be/${id}`);
   expect(html).not.toMatch(/href="#"|SHOP|EST\. 2024|7 tracks/);
   const assets = await fs.readdir("dist/assets");
