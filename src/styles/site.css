@@ -1085,6 +1085,13 @@ h2 {
 .footer-bottom .demo-label {
   font-size: 8px;
 }
+.footer-credit {
+  grid-column: 1/-1;
+  justify-self: center;
+  margin: 4px 0 10px;
+  color: var(--paper);
+  font-size: 11px;
+}
 dialog {
   border: 1px solid var(--pink);
   color: var(--text);
