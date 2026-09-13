@@ -150,13 +150,13 @@ h2 {
 .site-header nav a {
   padding: 12px 0;
 }
-.site-header nav a:first-child {
+.site-header nav a[aria-current="location"] {
   color: var(--pink);
 }
-.site-header nav a:first-child:before {
+.site-header nav a[aria-current="location"]:before {
   content: "[ ";
 }
-.site-header nav a:first-child:after {
+.site-header nav a[aria-current="location"]:after {
   content: " ]";
 }
 .effects-toggle {

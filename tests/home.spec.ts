@@ -69,8 +69,77 @@ for (const width of [360, 390, 768, 1024, 1440]) {
       .evaluateAll((anchors) => anchors.map((a) => a.getAttribute("href")!));
     for (const href of links) await expect(page.locator(href)).toHaveCount(1);
     await expect(page.locator('a[href*="@sanriogangarchive"]')).toHaveCount(2);
+
+    const current = page.locator('#navigation a[aria-current="location"]');
+    await expect(current).toHaveCount(1);
+    await expect(current).toHaveAttribute("href", "#home");
+    for (const href of [
+      "#music",
+      "#archive",
+      "#members",
+      "#fragments",
+      "#links",
+      "#fragments",
+      "#home",
+    ]) {
+      if (width <= 800) await page.locator(".menu-toggle").click();
+      const link = page.locator(`#navigation a[href="${href}"]`);
+      await link.focus();
+      await page.keyboard.press("Enter");
+      await expect(current).toHaveCount(1);
+      await expect(current).toHaveAttribute("href", href);
+      if (width <= 800) {
+        await expect(page.locator(".menu-toggle")).toHaveAttribute(
+          "aria-expanded",
+          "false",
+        );
+      }
+      await expect(link).toHaveCSS("color", "rgb(241, 82, 202)");
+      expect(
+        await link.evaluate(
+          (element) => getComputedStyle(element, "::before").content,
+        ),
+      ).toBe('"[ "');
+      if (href === "#archive") {
+        if (width <= 800) await page.locator(".menu-toggle").click();
+        await page.screenshot({ path: `output/navigation-${width}.png` });
+        if (width <= 800) await page.locator(".menu-toggle").click();
+      }
+    }
   });
 }
+
+test("active navigation follows direct links, history, scrolling and hero links", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/#archive");
+  const current = page.locator('#navigation a[aria-current="location"]');
+  await expect(current).toHaveAttribute("href", "#archive");
+  await page.locator('#navigation a[href="#music"]').click();
+  await expect(current).toHaveAttribute("href", "#music");
+  await page.goBack();
+  await expect(current).toHaveAttribute("href", "#archive");
+  await page.goForward();
+  await expect(current).toHaveAttribute("href", "#music");
+  await page
+    .locator("#members")
+    .evaluate((section) => section.scrollIntoView({ behavior: "instant" }));
+  await expect(current).toHaveAttribute("href", "#members");
+  await page.evaluate(() =>
+    scrollTo({
+      top: document.documentElement.scrollHeight,
+      behavior: "instant",
+    }),
+  );
+  await expect(current).toHaveAttribute("href", "#links");
+  await page.locator(".footer-logo").click();
+  await expect(current).toHaveAttribute("href", "#home");
+  await page.locator(".hero-actions .button").click();
+  await expect(current).toHaveAttribute("href", "#music");
+  await expect(current).toHaveCount(1);
+});
 
 test("folders, empty states, keyboard containment and focus restoration", async ({
   page,

@@ -29,6 +29,39 @@ reduced.addEventListener("change", updateEffects);
 updateEffects();
 const menuButton = document.querySelector<HTMLButtonElement>(".menu-toggle")!;
 const navigation = document.querySelector<HTMLElement>("#navigation")!;
+const navigationItems = [
+  ...navigation.querySelectorAll<HTMLAnchorElement>('a[href^="#"]'),
+].map((link) => ({
+  link,
+  section: document.getElementById(link.hash.slice(1))!,
+}));
+function updateNavigation() {
+  const root = document.documentElement;
+  const anchorTop =
+    scrollY + parseFloat(getComputedStyle(root).scrollPaddingTop);
+  const sectionTop = Math.max(anchorTop, scrollY + innerHeight / 4) + 1;
+  let active = navigationItems[0];
+  for (const item of navigationItems) {
+    if (item.section.offsetTop <= sectionTop) active = item;
+  }
+  // Short sections can share the same scroll destination at the page bottom.
+  if (scrollY >= root.scrollHeight - innerHeight - 1) {
+    active =
+      navigationItems.find(
+        ({ link, section }) =>
+          link.hash === location.hash && section.offsetTop >= anchorTop - 1,
+      ) ?? navigationItems[navigationItems.length - 1];
+  }
+  for (const { link } of navigationItems) {
+    if (link === active.link) link.setAttribute("aria-current", "location");
+    else link.removeAttribute("aria-current");
+  }
+}
+window.addEventListener("scroll", updateNavigation, { passive: true });
+window.addEventListener("hashchange", updateNavigation);
+window.addEventListener("resize", updateNavigation);
+window.addEventListener("load", updateNavigation);
+updateNavigation();
 function closeMenu(returnFocus = false) {
   menuButton.setAttribute("aria-expanded", "false");
   menuButton.textContent = "MENÚ +";
@@ -41,9 +74,9 @@ menuButton.addEventListener("click", () => {
   menuButton.textContent = open ? "CERRAR −" : "MENÚ +";
   navigation.classList.toggle("is-open", open);
 });
-navigation
-  .querySelectorAll("a")
-  .forEach((link) => link.addEventListener("click", () => closeMenu()));
+navigationItems.forEach(({ link }) =>
+  link.addEventListener("click", () => closeMenu()),
+);
 document.addEventListener("keydown", (event) => {
   if (
     event.key === "Escape" &&
