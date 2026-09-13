@@ -4,7 +4,7 @@ Bug fixes, content corrections, and improvements are welcome. Keep changes focus
 
 ## Local setup
 
-Use Node.js 22.12 or newer and npm. Fork or clone the repository, then run these commands from its root:
+Use Node.js 22.22.3+, 24.16.0+, or 26.3.0+ (see the supported ranges in `package.json`) and npm. Fork or clone the repository, then run these commands from its root:
 
 ```sh
 npm ci
@@ -37,7 +37,22 @@ For content changes, follow the policies in `src/content/site.json`: leave unkno
 
 ## Check your changes
 
-Build the static site:
+Run formatting, lint, Astro/TypeScript diagnostics, and the production build together:
+
+```sh
+npm run validate
+```
+
+Prettier formats Astro, TypeScript, JavaScript, CSS, JSON, and Markdown. ESLint uses the recommended JavaScript, TypeScript, and Astro rules, with `eslint-config-prettier` preventing formatting conflicts. Generated output, dependencies, and published assets are excluded. Install the recommended VS Code extensions for formatting and ESLint fixes on save.
+
+```sh
+npm run format        # Apply formatting
+npm run format:check  # Check formatting without writing
+npm run lint          # Check code; warnings fail the command
+npm run lint:fix      # Apply available ESLint fixes
+```
+
+Build the static site separately:
 
 ```sh
 npm run build
@@ -51,7 +66,7 @@ npm test
 
 The test script checks types, builds the site, starts the background development server, and runs Playwright. Tests currently require Microsoft Edge (`channel: "msedge"` in `playwright.config.ts`) and use http://localhost:4321. They leave screenshots in `output/` and the server running; stop it with `npm run astro -- dev stop` when finished.
 
-Check visual changes at mobile and desktop widths. Exercise any affected menus, dialogs, media, and keyboard controls. Update existing tests when intended behavior changes. Run `npm run check` for standalone Astro and TypeScript diagnostics. There is no separate lint script.
+Check visual changes at mobile and desktop widths. Exercise any affected menus, dialogs, media, and keyboard controls. Update existing tests when intended behavior changes. Run `npm run check` for standalone Astro and TypeScript diagnostics.
 
 ## Submit a pull request
 

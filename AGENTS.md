@@ -14,7 +14,7 @@ SanrioGang Archive is a static Astro site with Spanish-first copy and a pink, da
 
 ## Development
 
-Use Node.js 22.12+ and npm. Install dependencies with `npm ci`; keep `package-lock.json` in sync when dependencies change.
+Use Node.js 22.22.3+, 24.16.0+, or 26.3.0+ (see the supported ranges in `package.json`) and npm. Install dependencies with `npm ci`; keep `package-lock.json` in sync when dependencies change.
 
 Always start the dev server in background mode (`astro dev --background`). Run the local Astro CLI through npm:
 
@@ -37,6 +37,8 @@ The local site runs at `http://localhost:4321`. Check status before starting ano
 - Preserve keyboard access, visible focus, dialog focus restoration, reduced-motion support, and the effects toggle. Media playback must remain user initiated and pause when its dialog closes.
 
 ## Validation
+
+- Run `npm run validate` to check Prettier formatting, ESLint, Astro/TypeScript diagnostics, and the build. Use `npm run format` and `npm run lint:fix` to apply available fixes.
 
 - Run `npm run build` after changes to source, content, assets, or configuration.
 - Run `npm test` for UI or interaction changes. It builds the site, starts Astro in the background, and runs Playwright against port 4321; it leaves the server running.
