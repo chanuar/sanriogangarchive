@@ -49,9 +49,9 @@ For changes to content, layout, assets, or behavior, also run:
 npm test
 ```
 
-The test script builds the site, starts the background development server, and runs Playwright. Tests currently require Microsoft Edge (`channel: "msedge"` in `playwright.config.ts`) and use http://localhost:4321. They leave screenshots in `output/` and the server running; stop it with `npm run astro -- dev stop` when finished.
+The test script checks types, builds the site, starts the background development server, and runs Playwright. Tests currently require Microsoft Edge (`channel: "msedge"` in `playwright.config.ts`) and use http://localhost:4321. They leave screenshots in `output/` and the server running; stop it with `npm run astro -- dev stop` when finished.
 
-Check visual changes at mobile and desktop widths. Exercise any affected menus, dialogs, media, and keyboard controls. Update existing tests when intended behavior changes. There are no separate lint or type-check scripts configured.
+Check visual changes at mobile and desktop widths. Exercise any affected menus, dialogs, media, and keyboard controls. Update existing tests when intended behavior changes. Run `npm run check` for standalone Astro and TypeScript diagnostics. There is no separate lint script.
 
 ## Submit a pull request
 

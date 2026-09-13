@@ -59,9 +59,9 @@ document
       const dialog = document.getElementById(
         trigger.dataset.dialog!,
       ) as HTMLDialogElement;
+      trigger.focus();
       dialog.showModal();
       dialog.querySelector<HTMLButtonElement>("[data-close]")?.focus();
-      dialog.addEventListener("close", () => trigger.focus(), { once: true });
     });
   });
 document.querySelectorAll("dialog").forEach((dialog) => {

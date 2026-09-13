@@ -1,18 +1,18 @@
 ﻿import { test, expect } from "@playwright/test";
 import fs from "node:fs/promises";
 
-test("responsive collage, assets, navigation and captures", async ({
-  page,
-}) => {
-  const errors: string[] = [];
-  page.on("pageerror", (error) => errors.push(error.message));
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  for (const width of [360, 390, 768, 1024, 1440]) {
+for (const width of [360, 390, 768, 1024, 1440]) {
+  test(`responsive collage, assets, navigation and captures at ${width}px`, async ({
+    page,
+  }) => {
+    const errors: string[] = [];
+    page.on("pageerror", (error) => errors.push(error.message));
+    await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/");
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-      "SanrioGang ArchiveARCHIVE",
+    await expect(page.getByRole("heading", { level: 1 })).toHaveAccessibleName(
+      "SanrioGang Archive",
     );
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth),
@@ -45,16 +45,24 @@ test("responsive collage, assets, navigation and captures", async ({
           .map((image) => image.getAttribute("src")),
       );
     expect(broken).toEqual([]);
+    const wrongDimensions = await page.locator("main img, footer img").evaluateAll((images) =>
+      images.filter((image) => {
+        const img = image as HTMLImageElement;
+        return Number(img.getAttribute("width")) !== img.naturalWidth ||
+          Number(img.getAttribute("height")) !== img.naturalHeight;
+      }).map((image) => image.getAttribute("src")),
+    );
+    expect(wrongDimensions).toEqual([]);
     await page.evaluate(() => scrollTo(0, 0));
     await page.screenshot({ path: `output/home-${width}.png`, fullPage: true });
-  }
-  expect(errors).toEqual([]);
-  const links = await page
-    .locator('a[href^="#"]')
-    .evaluateAll((anchors) => anchors.map((a) => a.getAttribute("href")!));
-  for (const href of links) await expect(page.locator(href)).toHaveCount(1);
-  await expect(page.locator('a[href*="@sanriogangarchive"]')).toHaveCount(2);
-});
+    expect(errors).toEqual([]);
+    const links = await page
+      .locator('a[href^="#"]')
+      .evaluateAll((anchors) => anchors.map((a) => a.getAttribute("href")!));
+    for (const href of links) await expect(page.locator(href)).toHaveCount(1);
+    await expect(page.locator('a[href*="@sanriogangarchive"]')).toHaveCount(2);
+  });
+}
 
 test("folders, empty states, keyboard containment and focus restoration", async ({
   page,
@@ -81,6 +89,40 @@ test("folders, empty states, keyboard containment and focus restoration", async 
     "todavía está vacía",
   );
   await page.locator("dialog[open] [data-close]").click();
+});
+
+test("a queued dialog close does not steal the user's next focus", async ({ page }) => {
+  await page.goto("/");
+  await page.locator(".folder").first().click();
+  await page.evaluate(async () => {
+    const dialog = document.querySelector<HTMLDialogElement>("dialog[open]")!;
+    const closed = new Promise<void>((resolve) =>
+      dialog.addEventListener("close", () => resolve(), { once: true }),
+    );
+    dialog.close();
+    document.querySelectorAll<HTMLButtonElement>(".folder")[1].focus();
+    await closed;
+  });
+  await expect(page.locator(".folder").nth(1)).toBeFocused();
+});
+
+test("all media open from the gallery and restore focus on close", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/");
+  for (const trigger of await page.locator(".fragment").all()) {
+    await trigger.click();
+    const dialog = page.locator("dialog[open]");
+    await expect(dialog).toBeVisible();
+    const img = dialog.locator("img");
+    if (await img.count()) await img.evaluate((image: HTMLImageElement) => image.decode());
+    await dialog.locator("[data-close]").click();
+    await expect(dialog).toHaveCount(0);
+    await expect(trigger).toBeFocused();
+  }
+  await page.locator(".folder").first().click();
+  await page.mouse.click(1, 1);
+  await expect(page.locator("dialog[open]")).toHaveCount(0);
+  await expect(page.locator(".folder").first()).toBeFocused();
 });
 
 test("image lightbox and actual local video playback", async ({ page }) => {
@@ -118,6 +160,7 @@ test("mobile menu, effects persistence, system preference and gallery", async ({
   await page.setViewportSize({ width: 390, height: 650 });
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/");
+  await expect(page.locator("#navigation")).toBeHidden();
   await page.locator(".menu-toggle").click();
   await expect(page.locator("#navigation")).toBeVisible();
   await page.locator('#navigation a[href="#archive"]').click();
@@ -128,6 +171,12 @@ test("mobile menu, effects persistence, system preference and gallery", async ({
   await page.locator(".menu-toggle").click();
   await page.keyboard.press("Escape");
   await expect(page.locator(".menu-toggle")).toBeFocused();
+  await page.locator(".menu-toggle").click();
+  await page.setViewportSize({ width: 1024, height: 900 });
+  await expect(page.locator(".menu-toggle")).toHaveAttribute("aria-expanded", "false");
+  await expect(page.locator("#navigation")).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 650 });
+  await expect(page.locator("#navigation")).toBeHidden();
   await page.locator(".effects-toggle").click();
   await expect(page.locator("html")).toHaveAttribute("data-effects", "off");
   await page.reload();
@@ -144,6 +193,22 @@ test("mobile menu, effects persistence, system preference and gallery", async ({
   await expect
     .poll(() => page.locator(".fragment-strip").evaluate((e) => e.scrollLeft))
     .toBeLessThanOrEqual(3);
+});
+
+test("effects still work when browser storage is unavailable", async ({ page }) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(window, "localStorage", {
+      get() { throw new DOMException("Storage blocked", "SecurityError"); },
+    });
+  });
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("/");
+  await expect(page.locator("html")).toHaveAttribute("data-effects", "on");
+  await page.locator(".effects-toggle").click();
+  await expect(page.locator("html")).toHaveAttribute("data-effects", "off");
+  await expect(page.locator(".effects-toggle")).toHaveAttribute("aria-pressed", "false");
+  await page.locator(".folder").first().click();
+  await expect(page.locator("dialog[open]")).toBeVisible();
 });
 
 test("built assets exclude private references and preserve confirmed destinations", async () => {

@@ -8,6 +8,8 @@
     "dist"
   ],
   "compilerOptions": {
+    "moduleDetection": "force",
+    "types": ["node"],
     "jsx": "react-jsx",
     "jsxImportSource": "react"
   }
