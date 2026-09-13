@@ -18,7 +18,9 @@ for (const width of [360, 390, 768, 1024, 1440]) {
       await page.evaluate(() => document.documentElement.scrollWidth),
     ).toBe(width);
     await expect(page.locator(".song-list a")).toHaveCount(5);
-    await expect(page.locator('.song-list a[href="https://youtu.be/T8Ah398lVDE"]')).toContainText("estoy enamorado - el suke");
+    await expect(
+      page.locator('.song-list a[href="https://youtu.be/T8Ah398lVDE"]'),
+    ).toContainText("estoy enamorado - el suke");
     await expect(page.locator(".spotify-pending")).toContainText(
       "enlace oficial",
     );
@@ -45,13 +47,19 @@ for (const width of [360, 390, 768, 1024, 1440]) {
           .map((image) => image.getAttribute("src")),
       );
     expect(broken).toEqual([]);
-    const wrongDimensions = await page.locator("main img, footer img").evaluateAll((images) =>
-      images.filter((image) => {
-        const img = image as HTMLImageElement;
-        return Number(img.getAttribute("width")) !== img.naturalWidth ||
-          Number(img.getAttribute("height")) !== img.naturalHeight;
-      }).map((image) => image.getAttribute("src")),
-    );
+    const wrongDimensions = await page
+      .locator("main img, footer img")
+      .evaluateAll((images) =>
+        images
+          .filter((image) => {
+            const img = image as HTMLImageElement;
+            return (
+              Number(img.getAttribute("width")) !== img.naturalWidth ||
+              Number(img.getAttribute("height")) !== img.naturalHeight
+            );
+          })
+          .map((image) => image.getAttribute("src")),
+      );
     expect(wrongDimensions).toEqual([]);
     await page.evaluate(() => scrollTo(0, 0));
     await page.screenshot({ path: `output/home-${width}.png`, fullPage: true });
@@ -91,7 +99,9 @@ test("folders, empty states, keyboard containment and focus restoration", async 
   await page.locator("dialog[open] [data-close]").click();
 });
 
-test("a queued dialog close does not steal the user's next focus", async ({ page }) => {
+test("a queued dialog close does not steal the user's next focus", async ({
+  page,
+}) => {
   await page.goto("/");
   await page.locator(".folder").first().click();
   await page.evaluate(async () => {
@@ -106,7 +116,9 @@ test("a queued dialog close does not steal the user's next focus", async ({ page
   await expect(page.locator(".folder").nth(1)).toBeFocused();
 });
 
-test("all media open from the gallery and restore focus on close", async ({ page }) => {
+test("all media open from the gallery and restore focus on close", async ({
+  page,
+}) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   for (const trigger of await page.locator(".fragment").all()) {
@@ -114,7 +126,8 @@ test("all media open from the gallery and restore focus on close", async ({ page
     const dialog = page.locator("dialog[open]");
     await expect(dialog).toBeVisible();
     const img = dialog.locator("img");
-    if (await img.count()) await img.evaluate((image: HTMLImageElement) => image.decode());
+    if (await img.count())
+      await img.evaluate((image: HTMLImageElement) => image.decode());
     await dialog.locator("[data-close]").click();
     await expect(dialog).toHaveCount(0);
     await expect(trigger).toBeFocused();
@@ -173,7 +186,10 @@ test("mobile menu, effects persistence, system preference and gallery", async ({
   await expect(page.locator(".menu-toggle")).toBeFocused();
   await page.locator(".menu-toggle").click();
   await page.setViewportSize({ width: 1024, height: 900 });
-  await expect(page.locator(".menu-toggle")).toHaveAttribute("aria-expanded", "false");
+  await expect(page.locator(".menu-toggle")).toHaveAttribute(
+    "aria-expanded",
+    "false",
+  );
   await expect(page.locator("#navigation")).toBeVisible();
   await page.setViewportSize({ width: 390, height: 650 });
   await expect(page.locator("#navigation")).toBeHidden();
@@ -195,10 +211,14 @@ test("mobile menu, effects persistence, system preference and gallery", async ({
     .toBeLessThanOrEqual(3);
 });
 
-test("effects still work when browser storage is unavailable", async ({ page }) => {
+test("effects still work when browser storage is unavailable", async ({
+  page,
+}) => {
   await page.addInitScript(() => {
     Object.defineProperty(window, "localStorage", {
-      get() { throw new DOMException("Storage blocked", "SecurityError"); },
+      get() {
+        throw new DOMException("Storage blocked", "SecurityError");
+      },
     });
   });
   await page.emulateMedia({ reducedMotion: "no-preference" });
@@ -206,7 +226,10 @@ test("effects still work when browser storage is unavailable", async ({ page }) 
   await expect(page.locator("html")).toHaveAttribute("data-effects", "on");
   await page.locator(".effects-toggle").click();
   await expect(page.locator("html")).toHaveAttribute("data-effects", "off");
-  await expect(page.locator(".effects-toggle")).toHaveAttribute("aria-pressed", "false");
+  await expect(page.locator(".effects-toggle")).toHaveAttribute(
+    "aria-pressed",
+    "false",
+  );
   await page.locator(".folder").first().click();
   await expect(page.locator("dialog[open]")).toBeVisible();
 });
@@ -219,16 +242,22 @@ test("built assets exclude private references and preserve confirmed destination
     "Actuaci\u00f3n en un escenario bajo luces azules y humo.",
   ])
     expect(html).toContain(text);
-  for (const id of ["ReupqkPcEPw", "Ga_T2miUscU", "ivkO6KhnciI", "FPbgrZ8qRxU", "T8Ah398lVDE"])
+  for (const id of [
+    "ReupqkPcEPw",
+    "Ga_T2miUscU",
+    "ivkO6KhnciI",
+    "FPbgrZ8qRxU",
+    "T8Ah398lVDE",
+  ])
     expect(html).toContain(`https://youtu.be/${id}`);
   expect(html).not.toMatch(/href="#"|SHOP|EST\. 2024|7 tracks/);
   const assets = await fs.readdir("dist/assets");
   expect(assets.some((name) => /inspo|mock|^img.*\.png/.test(name))).toBe(
     false,
   );
-  const sources = [
-    ...html.matchAll(/(?:src|poster)="(\/assets\/[^\"]+)"/g),
-  ].map((match) => match[1]);
+  const sources = [...html.matchAll(/(?:src|poster)="(\/assets\/[^"]+)"/g)].map(
+    (match) => match[1],
+  );
   for (const src of new Set(sources))
     expect((await fs.stat(`dist${src}`)).size).toBeGreaterThan(0);
 });

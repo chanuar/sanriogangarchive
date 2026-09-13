@@ -1,4 +1,59 @@
 ﻿---
 const { kind } = Astro.props;
 ---
-{kind === 'cat' ? <svg viewBox="0 0 200 190" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M40 78 28 20 72 52Q100 35 130 55L171 21 166 84Q190 143 133 158L129 181 113 158 87 159 72 182 68 154Q11 143 40 78Z"/><path d="m54 96 18 3m53-1 18-4M91 121l9 8 11-8m-11 8v11m-52-16-37-7m39 22-36 8m136-23 37-9m-37 24 40 3M95 60v27m-10-15 24-2"/><ellipse cx="62" cy="108" rx="7" ry="10" fill="currentColor"/><ellipse cx="135" cy="108" rx="7" ry="10" fill="currentColor"/><path d="m166 163 9 13 16-23M12 70l8-8-2-10"/></svg> : <svg viewBox="0 0 400 650" fill="none" stroke="currentColor" stroke-linecap="round" aria-hidden="true"><defs><filter id="rough-wings"><feTurbulence type="fractalNoise" baseFrequency=".027" numOctaves="3" result="noise"/><feDisplacementMap in="SourceGraphic" in2="noise" scale="7"/></filter></defs><g filter="url(#rough-wings)" stroke-width="2"><ellipse cx="204" cy="99" rx="45" ry="13" transform="rotate(-12 204 99)"/><path d="M188 168Q155 130 153 196L174 263 144 454 182 433 201 521 217 438 249 467 225 257 249 186Q241 143 216 169M179 205Q137 186 129 124Q89 82 43 46Q50 165 23 207Q62 165 55 126Q75 173 47 248Q87 190 80 151Q111 200 62 313Q115 243 114 210Q146 244 91 378Q152 299 153 273M228 202Q273 182 283 116Q321 70 370 31Q351 140 385 192Q343 159 352 115Q320 174 363 240Q310 191 319 148Q284 204 356 308Q286 249 287 205Q257 255 329 383Q269 312 250 262"/><path d="M172 259 154 367 181 348 174 439M228 263l15 117-25-29 5 110M201 225v196M20 439Q-18 113 152 27M32 445Q4 113 155 37M375 432Q438 98 255 6M384 471Q457 75 250 17"/>{Array.from({length:16},(_,i)=><path d={`M${35+i*7} ${87+i*9} Q${12+i*6} ${200+i*8} ${19+i*8} ${300+i*8} M${371-i*7} ${70+i*9} Q${400-i*6} ${189+i*8} ${390-i*8} ${290+i*8}`} opacity=".55"/>)}</g><g stroke-width="2"><path d="m60 414 7 45 11-43-35 17 45 5ZM301 462l9 39 10-45-35 26 45-1"/></g></svg>}
+
+{kind === "cat" ? (
+  <svg
+    viewBox="0 0 200 190"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="3"
+    aria-hidden="true"
+  >
+    <path d="M40 78 28 20 72 52Q100 35 130 55L171 21 166 84Q190 143 133 158L129 181 113 158 87 159 72 182 68 154Q11 143 40 78Z" />
+    <path d="m54 96 18 3m53-1 18-4M91 121l9 8 11-8m-11 8v11m-52-16-37-7m39 22-36 8m136-23 37-9m-37 24 40 3M95 60v27m-10-15 24-2" />
+    <ellipse cx="62" cy="108" rx="7" ry="10" fill="currentColor" />
+    <ellipse cx="135" cy="108" rx="7" ry="10" fill="currentColor" />
+    <path d="m166 163 9 13 16-23M12 70l8-8-2-10" />
+  </svg>
+) : (
+  <svg
+    viewBox="0 0 400 650"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    aria-hidden="true"
+  >
+    <defs>
+      <filter id="rough-wings">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency=".027"
+          numOctaves="3"
+          result="noise"
+        />
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="7" />
+      </filter>
+    </defs>
+    <g filter="url(#rough-wings)" stroke-width="2">
+      <ellipse
+        cx="204"
+        cy="99"
+        rx="45"
+        ry="13"
+        transform="rotate(-12 204 99)"
+      />
+      <path d="M188 168Q155 130 153 196L174 263 144 454 182 433 201 521 217 438 249 467 225 257 249 186Q241 143 216 169M179 205Q137 186 129 124Q89 82 43 46Q50 165 23 207Q62 165 55 126Q75 173 47 248Q87 190 80 151Q111 200 62 313Q115 243 114 210Q146 244 91 378Q152 299 153 273M228 202Q273 182 283 116Q321 70 370 31Q351 140 385 192Q343 159 352 115Q320 174 363 240Q310 191 319 148Q284 204 356 308Q286 249 287 205Q257 255 329 383Q269 312 250 262" />
+      <path d="M172 259 154 367 181 348 174 439M228 263l15 117-25-29 5 110M201 225v196M20 439Q-18 113 152 27M32 445Q4 113 155 37M375 432Q438 98 255 6M384 471Q457 75 250 17" />
+      {Array.from({ length: 16 }, (_, i) => (
+        <path
+          d={`M${35 + i * 7} ${87 + i * 9} Q${12 + i * 6} ${200 + i * 8} ${19 + i * 8} ${300 + i * 8} M${371 - i * 7} ${70 + i * 9} Q${400 - i * 6} ${189 + i * 8} ${390 - i * 8} ${290 + i * 8}`}
+          opacity=".55"
+        />
+      ))}
+    </g>
+    <g stroke-width="2">
+      <path d="m60 414 7 45 11-43-35 17 45 5ZM301 462l9 39 10-45-35 26 45-1" />
+    </g>
+  </svg>
+)}
