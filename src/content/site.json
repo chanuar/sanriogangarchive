@@ -1,0 +1,355 @@
+{
+  "_meta": {
+    "purpose": "Semilla de revisión; no es contenido editorial final.",
+    "version": 1,
+    "demoMode": true,
+    "unknownValuePolicy": "Usar null/arrays vacíos; no inventar hechos ni URLs.",
+    "publicationPolicy": "Publicar como hechos solo datos aprobados; revisar todo copy demo antes de producción."
+  },
+  "site": {
+    "name": "SanrioGang Archive",
+    "status": "approved",
+    "genres": [
+      "trap",
+      "under"
+    ],
+    "primaryLanguage": "es",
+    "secondaryLanguage": "en",
+    "navigation": [
+      {
+        "label": "HOME",
+        "href": "#home"
+      },
+      {
+        "label": "MUSIC",
+        "href": "#music"
+      },
+      {
+        "label": "ARCHIVE",
+        "href": "#archive"
+      },
+      {
+        "label": "GANG",
+        "href": "#members"
+      },
+      {
+        "label": "FRAGMENTS",
+        "href": "#fragments"
+      }
+    ],
+    "links": {
+      "spotify": null,
+      "youtube": "https://youtube.com/@sanriogangarchive?si=12zKAN6MC9Z7008-",
+      "instagram": null,
+      "contactEmail": null
+    },
+    "effects": {
+      "default": "system",
+      "showToggle": true,
+      "autoplayAudio": false
+    },
+    "merchEnabled": false,
+    "domain": null
+  },
+  "hero": {
+    "logo": "/assets/logo-sanriogang.webp",
+    "headline": "SanrioGang Archive",
+    "tagline": {
+      "text": "cute // cursed // archive // trap lore",
+      "status": "demo"
+    },
+    "description": {
+      "text": "un archivo de sentimientos rotos… pero seguimos bailando",
+      "status": "demo"
+    },
+    "primaryCta": {
+      "label": "ESCUCHAR / LISTEN NOW",
+      "href": "#music"
+    },
+    "secondaryCta": {
+      "label": "ABRIR EL ARCHIVO",
+      "href": "#archive"
+    },
+    "collageMediaIds": [
+      "photo-pink-signs",
+      "photo-cat-selfie",
+      "mimosas-preview"
+    ]
+  },
+  "featuredRelease": {
+    "id": "release-pending-001",
+    "status": "pending",
+    "displayTitle": "MIMOSAS V3",
+    "titleSource": "nombre del archivo aportado y mock; confirmar título final",
+    "isConfirmedLatestRelease": false,
+    "releaseType": null,
+    "releaseDate": null,
+    "cover": null,
+    "spotifyUrl": null,
+    "youtubeUrl": null,
+    "tracks": [],
+    "preview": {
+      "poster": "/assets/video/mimosas-v3-poster.webp",
+      "silentVideo": "/assets/video/mimosas-v3-preview.mp4",
+      "videoWithAudio": "/assets/video/mimosas-v3-clip.mp4",
+      "durationSeconds": 4.08,
+      "width": 640,
+      "height": 360,
+      "label": "FRAGMENTO / PREVIEW",
+      "note": "La duración corresponde al fragmento de vídeo, NO al tema completo."
+    }
+  },
+  "members": [],
+  "membersPendingMessage": "Fichas de integrantes en preparación. Las fotos del collage no identifican perfiles.",
+  "archiveCollections": [
+    {
+      "id": "archive-001",
+      "label": "ARCHIVE_001",
+      "status": "demo"
+    },
+    {
+      "id": "lore-dump",
+      "label": "LORE DUMP",
+      "status": "demo"
+    },
+    {
+      "id": "no-angels",
+      "label": "NO ANGELS ONLINE",
+      "status": "demo"
+    },
+    {
+      "id": "blog",
+      "label": "BLOG DEL FIN DEL MUNDO",
+      "status": "demo"
+    },
+    {
+      "id": "party",
+      "label": "PARTY.EXE",
+      "status": "demo",
+      "note": "Etiqueta estética; nunca ejecutar ni descargar un programa."
+    },
+    {
+      "id": "unreleased",
+      "label": "UNRELEASED",
+      "status": "demo"
+    }
+  ],
+  "lore": [
+    {
+      "id": "demo-note-001",
+      "slug": "readme",
+      "collectionId": "lore-dump",
+      "type": "note",
+      "title": "readme.txt",
+      "body": "seguimos aquí aunque el archivo esté corrupto",
+      "status": "demo",
+      "isSecret": false,
+      "date": null,
+      "author": null,
+      "mediaIds": []
+    },
+    {
+      "id": "demo-note-002",
+      "slug": "404-not-found",
+      "collectionId": "no-angels",
+      "type": "note",
+      "title": "404_NOT_FOUND",
+      "body": "archivo recuperado. dignidad no encontrada.",
+      "status": "demo",
+      "isSecret": true,
+      "date": null,
+      "author": null,
+      "mediaIds": []
+    },
+    {
+      "id": "demo-note-003",
+      "slug": "sin-contexto",
+      "collectionId": "archive-001",
+      "type": "photo-note",
+      "title": "sin_contexto.jpg",
+      "body": "no era una fase, era una carpeta",
+      "status": "demo",
+      "isSecret": false,
+      "date": null,
+      "author": null,
+      "mediaIds": [
+        "photo-pink-signs"
+      ]
+    }
+  ],
+  "media": [
+    {
+      "id": "photo-pink-signs",
+      "type": "image",
+      "src": "/assets/photo-pink-signs.webp",
+      "width": 960,
+      "height": 1280,
+      "alt": "Dos personas sostienen carteles rosas escritos a mano en un espacio oscuro.",
+      "caption": null,
+      "identity": null,
+      "source": "user_upload",
+      "status": "supplied"
+    },
+    {
+      "id": "photo-cat-selfie",
+      "type": "image",
+      "src": "/assets/photo-cat-selfie.webp",
+      "width": 720,
+      "height": 1280,
+      "alt": "Selfie con pelo rosa, gorro oscuro y un filtro de orejas y bigotes de gato.",
+      "caption": null,
+      "identity": null,
+      "source": "user_upload",
+      "status": "supplied"
+    },
+    {
+      "id": "mimosas-preview",
+      "type": "video",
+      "src": "/assets/video/mimosas-v3-preview.mp4",
+      "audioVersion": "/assets/video/mimosas-v3-clip.mp4",
+      "poster": "/assets/video/mimosas-v3-poster.webp",
+      "width": 640,
+      "height": 360,
+      "durationSeconds": 4.08,
+      "alt": "Fragmento del vídeo aportado: dos personas junto a un banco al aire libre.",
+      "caption": "FRAGMENTO / PREVIEW",
+      "identity": null,
+      "source": "user_upload_derivative",
+      "status": "supplied"
+    },
+    {
+      "id": "mimosas-still-01",
+      "type": "image",
+      "src": "/assets/video/mimosas-v3-still-01.webp",
+      "width": 640,
+      "height": 360,
+      "alt": "Fotograma del fragmento de vídeo: dos personas junto a un banco.",
+      "caption": null,
+      "identity": null,
+      "source": "user_video_frame",
+      "status": "supplied"
+    },
+    {
+      "id": "mimosas-still-02",
+      "type": "image",
+      "src": "/assets/video/mimosas-v3-still-02.webp",
+      "width": 640,
+      "height": 360,
+      "alt": "Otro fotograma del fragmento de vídeo aportado, en el mismo espacio al aire libre.",
+      "caption": null,
+      "identity": null,
+      "source": "user_video_frame",
+      "status": "supplied"
+    },
+    {
+      "id": "photo-0",
+      "type": "image",
+      "src": "/assets/photo-0.webp",
+      "width": 900,
+      "height": 1200,
+      "alt": "Foto con flash de una persona con gorra sosteniendo billetes.",
+      "status": "supplied",
+      "identity": null
+    },
+    {
+      "id": "photo-1",
+      "type": "image",
+      "src": "/assets/photo-1.webp",
+      "width": 900,
+      "height": 1200,
+      "alt": "Dos personas posando sobre una escultura en una calle.",
+      "status": "supplied",
+      "identity": null
+    },
+    {
+      "id": "photo-2",
+      "type": "image",
+      "src": "/assets/photo-2.webp",
+      "width": 1200,
+      "height": 1066,
+      "alt": "Actuaci?n en un escenario bajo luces azules y humo.",
+      "status": "supplied",
+      "identity": null
+    },
+    {
+      "id": "photo-3",
+      "type": "image",
+      "src": "/assets/photo-3.webp",
+      "width": 900,
+      "height": 1200,
+      "alt": "Selfie de una persona con pelo rosa y un objeto plateado.",
+      "status": "supplied",
+      "identity": null
+    },
+    {
+      "id": "photo-4",
+      "type": "image",
+      "src": "/assets/photo-4.webp",
+      "width": 675,
+      "height": 1200,
+      "alt": "Varias personas al aire libre junto a un banco.",
+      "status": "supplied",
+      "identity": null
+    },
+    {
+      "id": "photo-5",
+      "type": "image",
+      "src": "/assets/photo-5.webp",
+      "width": 675,
+      "height": 1200,
+      "alt": "Una persona frente a la entrada de una tienda.",
+      "status": "supplied",
+      "identity": null
+    }
+  ],
+  "pendingProduction": [
+    "Enlaces oficiales de Spotify e Instagram.",
+    "Confirmación del título y condición de último lanzamiento.",
+    "Portada y metadatos oficiales del release.",
+    "Integrantes, nombres artísticos y roles confirmados.",
+    "Lore real o aprobación editorial de los textos demo.",
+    "Email de contacto y dominio de publicación cuando existan."
+  ],
+  "songs": [
+    {
+      "id": "ReupqkPcEPw",
+      "title": null,
+      "label": "TRACK / 01",
+      "url": "https://youtu.be/ReupqkPcEPw",
+      "status": "supplied"
+    },
+    {
+      "id": "Ga_T2miUscU",
+      "title": null,
+      "label": "TRACK / 02",
+      "url": "https://youtu.be/Ga_T2miUscU",
+      "status": "supplied"
+    },
+    {
+      "id": "ivkO6KhnciI",
+      "title": null,
+      "label": "TRACK / 03",
+      "url": "https://youtu.be/ivkO6KhnciI",
+      "status": "supplied"
+    },
+    {
+      "id": "FPbgrZ8qRxU",
+      "title": null,
+      "label": "TRACK / 04",
+      "url": "https://youtu.be/FPbgrZ8qRxU",
+      "status": "supplied"
+    }
+  ],
+  "editorial": {
+    "status": "demo",
+    "heroNote": "NO ANGELS\nONLINE",
+    "together": "STILL TRASH / STILL TOGETHER",
+    "gangNote": "mis amigos\nson mi religi?n",
+    "archiveNote": [
+      "hacer buena m?sica",
+      "cuidar a los amigos",
+      "seguir bailando"
+    ],
+    "footer": "CUTE PEOPLE. TERRIBLE IDEAS. ETERNAL ARCHIVE."
+  }
+}
