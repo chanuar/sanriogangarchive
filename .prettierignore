@@ -1,0 +1,4 @@
+# Prettier also respects .gitignore.
+public/
+package-lock.json
+.agents/
